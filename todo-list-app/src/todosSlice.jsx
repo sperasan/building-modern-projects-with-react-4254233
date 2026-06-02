@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loadingCompleted } from "./loadingSlice";
 
 export const todosSlice = createSlice({
   name: "todos",
   initialState: {
-    value: [
-      { name: "Goto store", isCompleted: true },
-      { name: "New Todo", isCompleted: false },
-    ],
+    value: [],
   },
   reducers: {
     createTodo: (state, action) => {
@@ -28,8 +26,16 @@ export const todosSlice = createSlice({
         (todo) => todo.name !== action.payload.name,
       );
     },
+    todosUpdated: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadingCompleted, (state, action) => {
+      state.value = action.payload;
+    });
   },
 });
 
-export const { createTodo, markTodoAsCompleted, deleteTodo } =
+export const { createTodo, markTodoAsCompleted, deleteTodo, todosUpdated } =
   todosSlice.actions;

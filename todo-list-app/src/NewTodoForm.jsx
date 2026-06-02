@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createTodo } from "./todosSlice";
+import { createTodo } from "./thunks";
 
 const NewTodoFrom = () => {
   const [inputText, setInputText] = useState("");
@@ -17,7 +17,7 @@ const NewTodoFrom = () => {
       />
       <button
         onClick={() => {
-          dispatch(createTodo({ name: inputText }));
+          dispatch(createTodo(inputText));
           setInputText("");
         }}
       >
